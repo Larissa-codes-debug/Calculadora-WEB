@@ -1,2 +1,26 @@
-# Calculadora-WEB
-Usuário usa os 3 serviços pelo navegador.
+# Calculadora Web
+
+## Sobre o projeto
+
+## Funcionalidades
+
+- Calculadora de IMC
+- Verificador de ano bissexto
+- Calculadora matemática
+
+## Tecnologias
+
+- JavaScript
+- Node.js
+- HTML
+- CSS
+- Docker
+
+## Como executar
+
+npm install
+npm start
+
+## Como executar com Docker
+
+docker compose up
