@@ -1,0 +1,13 @@
+{
+  "name": "desafio-imc",
+  "version": "1.0.0",
+  "description": "Calculadora de IMC para terminal e site",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "terminal": "node src/terminal.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
