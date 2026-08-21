@@ -43,7 +43,7 @@ function mostrarCalculadora(tipo) {
    CALCULADORA DE IMC
 ===================================== */
 
-function calcularIMC() {
+function executarCalculoIMC() {
 
     const peso = Number(
         document.getElementById("peso").value
@@ -57,8 +57,13 @@ function calcularIMC() {
         document.getElementById("resultado-imc");
 
 
-    // Validação
-    if (peso <= 0 || altura <= 0) {
+    // Validação dos dados
+    if (
+        peso <= 0 ||
+        altura <= 0 ||
+        Number.isNaN(peso) ||
+        Number.isNaN(altura)
+    ) {
 
         resultado.innerHTML =
             "Digite um peso e uma altura válidos.";
@@ -67,89 +72,77 @@ function calcularIMC() {
     }
 
 
-    // Cálculo
-    const imc =
-        peso / (altura * altura);
+    try {
+
+        // Usa a função que está em src/imc.js
+        const imc = calcularIMC(peso, altura);
+
+        // Usa a classificação que está em src/imc.js
+        const classificacao = classificarIMC(imc);
+
+        let orientacao = "";
 
 
-    let classificacao;
-    let orientacao = "";
+        // Orientação para obesidade
+        if (imc >= 30 && imc < 35) {
+
+            orientacao = `
+                <br><br>
+
+                <strong>Orientação:</strong><br>
+
+                Recomendamos procurar um nutricionista
+                para receber uma orientação alimentar
+                adequada e conversar com profissionais
+                de saúde sobre atividades físicas.
+            `;
+
+        } else if (imc >= 35 && imc < 40) {
+
+            orientacao = `
+                <br><br>
+
+                <strong>Orientação:</strong><br>
+
+                Recomendamos procurar um nutricionista
+                para uma avaliação individualizada e
+                conversar com profissionais de saúde
+                antes de iniciar ou intensificar
+                atividades físicas.
+            `;
+
+        } else if (imc >= 40) {
+
+            orientacao = `
+                <br><br>
+
+                <strong>Orientação:</strong><br>
+
+                Recomendamos procurar um profissional
+                de saúde para uma avaliação individualizada
+                antes de iniciar atividades físicas.
+            `;
+        }
 
 
-    // Classificação
-    if (imc < 18.5) {
+        // Exibe resultado
+        resultado.innerHTML = `
+            Seu IMC é:
+            <strong>${imc.toFixed(2)}</strong>
 
-        classificacao =
-            "Magreza ou abaixo do peso.";
-
-    } else if (imc <= 24.9) {
-
-        classificacao =
-            "Peso normal ou adequado.";
-
-    } else if (imc <= 29.9) {
-
-        classificacao =
-            "Sobrepeso.";
-
-    } else if (imc <= 34.9) {
-
-        classificacao =
-            "Obesidade grau I.";
-
-        orientacao = `
             <br><br>
-            <strong>Orientação:</strong><br>
-            Recomendamos procurar um nutricionista
-            para receber uma orientação alimentar
-            adequada e conversar com profissionais
-            de saúde sobre atividades físicas.
+
+            Classificação:
+            <strong>${classificacao}</strong>
+
+            ${orientacao}
         `;
 
-    } else if (imc <= 39.9) {
+    } catch (erro) {
 
-        classificacao =
-            "Obesidade grau II.";
-
-        orientacao = `
-            <br><br>
-            <strong>Orientação:</strong><br>
-            Recomendamos procurar um nutricionista
-            para uma avaliação individualizada e
-            conversar com profissionais de saúde
-            antes de iniciar ou intensificar
-            atividades físicas.
-        `;
-
-    } else {
-
-        classificacao =
-            "Obesidade grau III (grave).";
-
-        orientacao = `
-            <br><br>
-            <strong>Orientação:</strong><br>
-            Recomendamos procurar um profissional
-            de saúde para uma avaliação individualizada
-            antes de iniciar atividades físicas.
-        `;
+        resultado.innerHTML = erro.message;
     }
-
-
-    // Exibe resultado
-    resultado.innerHTML = `
-        Seu IMC é:
-        <strong>${imc.toFixed(2)}</strong>
-
-        <br><br>
-
-        Classificação:
-        <strong>${classificacao}</strong>
-
-        ${orientacao}
-    `;
 }
-
 
 /* =====================================
    VERIFICADOR DE ANO BISSEXTO

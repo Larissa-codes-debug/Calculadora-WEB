@@ -1,5 +1,7 @@
 const readline = require("readline");
 
+const { calcularIMC, classificarIMC } = require("../src/imc");
+
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -12,23 +14,16 @@ rl.question("Digite seu peso em kg: ", (pesoInformado) => {
         const peso = Number(pesoInformado);
         const altura = Number(alturaInformada);
 
-        if (peso <= 0 || altura <= 0) {
+        if (peso <= 0 || altura <= 0 || Number.isNaN(peso) || Number.isNaN(altura)) {
             console.log("Peso ou altura inválidos.");
             rl.close();
             return;
         }
 
-        const imc = peso / (altura * altura);
+        const imc = calcularIMC(peso, altura);
 
         console.log(`\nSeu IMC é: ${imc.toFixed(2)}`);
-
-        if (imc < 18.5) {
-            console.log("Você está abaixo do peso.");
-        } else if (imc >= 18.5 && imc < 25) {
-            console.log("Você está com o peso adequado.");   
-        } else {
-            console.log("Você está acima ou dentro do peso adequado.");
-        }
+        console.log(classificarIMC(imc));
 
         rl.close();
     });
