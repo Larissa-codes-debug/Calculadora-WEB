@@ -1,3 +1,4 @@
+
 {
   "name": "desafio-imc",
   "version": "1.0.0",
@@ -5,7 +6,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "terminal": "node src/terminal.js"
+    "terminal": "node src/terminal.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "express": "^5.1.0"
