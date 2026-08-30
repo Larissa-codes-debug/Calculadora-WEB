@@ -6,7 +6,8 @@
 
 - Calculadora de IMC
 - Verificador de ano bissexto
-- Calculadora matemática
+  Futuras implementações:
+- Calculadora matemática 
 
 ## Tecnologias
 
