@@ -40,6 +40,17 @@ const server = http.createServer((req, res) => {
 
         contentType = "application/javascript; charset=utf-8";
 
+    } else if (req.url === "/matematica.js") {
+
+        filePath = path.join(
+            __dirname,
+            "..",
+            "src",
+            "matematica.js"
+        );
+
+        contentType = "application/javascript; charset=utf-8";
+
     } else if (req.url === "/imc.js") {
 
         filePath = path.join(

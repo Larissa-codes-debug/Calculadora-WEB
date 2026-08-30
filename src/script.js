@@ -1,145 +1,75 @@
 /* =====================================
-   TROCAR ENTRE AS CALCULADORAS
+   MENU DAS CALCULADORAS
 ===================================== */
 
 function mostrarCalculadora(tipo) {
+    const calculadoras = {
+        imc: document.getElementById("calculadora-imc"),
+        bissexto: document.getElementById("calculadora-bissexto"),
+        matematica: document.getElementById("calculadora-matematica")
+    };
 
-    const calculadoraIMC =
-        document.getElementById("calculadora-imc");
+    const botoes = document.querySelectorAll(".botao-menu");
 
-    const calculadoraBissexto =
-        document.getElementById("calculadora-bissexto");
+    Object.values(calculadoras).forEach(function (calculadora) {
+        calculadora.classList.add("escondida");
+    });
 
-    const botoes =
-        document.querySelectorAll(".botao-menu");
-
-
-    // Remove a classe ativo dos botões
     botoes.forEach(function (botao) {
         botao.classList.remove("ativo");
     });
 
+    if (calculadoras[tipo]) {
+        calculadoras[tipo].classList.remove("escondida");
+    }
 
-    if (tipo === "imc") {
+    const ordem = ["imc", "bissexto", "matematica"];
+    const indice = ordem.indexOf(tipo);
 
-        calculadoraIMC.classList.remove("escondida");
-
-        calculadoraBissexto.classList.add("escondida");
-
-        botoes[0].classList.add("ativo");
-
-    } else {
-
-        calculadoraIMC.classList.add("escondida");
-
-        calculadoraBissexto.classList.remove("escondida");
-
-        botoes[1].classList.add("ativo");
+    if (indice >= 0 && botoes[indice]) {
+        botoes[indice].classList.add("ativo");
     }
 }
-
 
 /* =====================================
    CALCULADORA DE IMC
 ===================================== */
 
 function executarCalculoIMC() {
+    const pesoInformado = document.getElementById("peso").value.trim();
+    const alturaInformada = document.getElementById("altura").value.trim();
+    const resultado = document.getElementById("resultado-imc");
 
-    const peso = Number(
-        document.getElementById("peso").value
-    );
+    const peso = parseFloat(pesoInformado);
+    const altura = parseFloat(alturaInformada);
 
-    const altura = Number(
-        document.getElementById("altura").value
-    );
-
-    const resultado =
-        document.getElementById("resultado-imc");
-
-
-    // Validação dos dados
     if (
-        peso <= 0 ||
-        altura <= 0 ||
+        pesoInformado === "" ||
+        alturaInformada === "" ||
         Number.isNaN(peso) ||
-        Number.isNaN(altura)
+        Number.isNaN(altura) ||
+        peso <= 0 ||
+        altura <= 0
     ) {
-
-        resultado.innerHTML =
-            "Digite um peso e uma altura válidos.";
-
+        resultado.innerHTML = "Digite um peso e uma altura válidos.";
         return;
     }
 
-
     try {
-
-        // Usa a função que está em src/imc.js
         const imc = calcularIMC(peso, altura);
-
-        // Usa a classificação que está em src/imc.js
         const classificacao = classificarIMC(imc);
 
-        let orientacao = "";
+        const orientacao = imc >= 30
+            ? "<br><br><strong>Orientação:</strong><br>Recomendamos procurar um nutricionista e profissionais de saúde para orientação individualizada sobre alimentação e atividade física."
+            : "";
 
-
-        // Orientação para obesidade
-        if (imc >= 30 && imc < 35) {
-
-            orientacao = `
-                <br><br>
-
-                <strong>Orientação:</strong><br>
-
-                Recomendamos procurar um nutricionista
-                para receber uma orientação alimentar
-                adequada e conversar com profissionais
-                de saúde sobre atividades físicas.
-            `;
-
-        } else if (imc >= 35 && imc < 40) {
-
-            orientacao = `
-                <br><br>
-
-                <strong>Orientação:</strong><br>
-
-                Recomendamos procurar um nutricionista
-                para uma avaliação individualizada e
-                conversar com profissionais de saúde
-                antes de iniciar ou intensificar
-                atividades físicas.
-            `;
-
-        } else if (imc >= 40) {
-
-            orientacao = `
-                <br><br>
-
-                <strong>Orientação:</strong><br>
-
-                Recomendamos procurar um profissional
-                de saúde para uma avaliação individualizada
-                antes de iniciar atividades físicas.
-            `;
-        }
-
-
-        // Exibe resultado
         resultado.innerHTML = `
-            Seu IMC é:
-            <strong>${imc.toFixed(2)}</strong>
-
+            Seu IMC é: <strong>${imc.toFixed(2)}</strong>
             <br><br>
-
-            Classificação:
-            <strong>${classificacao}</strong>
-
+            Classificação: <strong>${classificacao}</strong>
             ${orientacao}
         `;
-
     } catch (erro) {
-
         resultado.innerHTML = erro.message;
     }
 }
@@ -149,74 +79,113 @@ function executarCalculoIMC() {
 ===================================== */
 
 function verificarBissexto() {
+    const anoInformado = document.getElementById("ano").value.trim();
+    const resultado = document.getElementById("resultado-bissexto");
+    const ano = Number(anoInformado);
 
-    const ano =
-        Number(document.getElementById("ano").value);
-
-    const resultado =
-        document.getElementById("resultado-bissexto");
-
-
-    // Validação
-    if (!Number.isInteger(ano) || ano <= 0) {
-
-        resultado.innerHTML =
-            "Digite um ano válido.";
-
+    if (
+        anoInformado === "" ||
+        Number.isNaN(ano) ||
+        !Number.isInteger(ano) ||
+        ano <= 0
+    ) {
+        resultado.innerHTML = "Digite um ano válido.";
         return;
     }
 
-
-    // Verifica se o ano é bissexto
     const ehBissexto =
-        (ano % 400 === 0) ||
+        ano % 400 === 0 ||
         (ano % 4 === 0 && ano % 100 !== 0);
 
+    const mensagem = ehBissexto
+        ? `<strong>${ano}</strong> é um ano bissexto.`
+        : `<strong>${ano}</strong> não é um ano bissexto.`;
 
-    let mensagem;
-
-
-    if (ehBissexto) {
-
-        mensagem = `
-            <strong>${ano}</strong>
-            é um ano bissexto.
-        `;
-
-    } else {
-
-        mensagem = `
-            <strong>${ano}</strong>
-            não é um ano bissexto.
-        `;
-    }
-
-
-    // Procura o próximo ano bissexto
     let proximoAno = ano + 1;
-
 
     while (
         !(
             proximoAno % 400 === 0 ||
-            (
-                proximoAno % 4 === 0 &&
-                proximoAno % 100 !== 0
-            )
+            (proximoAno % 4 === 0 && proximoAno % 100 !== 0)
         )
     ) {
         proximoAno++;
     }
 
-
-    // Exibe resultado
     resultado.innerHTML = `
         ${mensagem}
-
         <br><br>
-
-        O próximo ano bissexto será:
-
-        <strong>${proximoAno}</strong>
+        O próximo ano bissexto será: <strong>${proximoAno}</strong>
     `;
 }
+
+/* =====================================
+   CALCULADORA MATEMÁTICA
+===================================== */
+
+function executarCalculoMatematico() {
+    const valor1 = document.getElementById("numero1").value.trim();
+    const valor2 = document.getElementById("numero2").value.trim();
+    const operacao = document.getElementById("operacao-matematica").value.trim().toLowerCase();
+    const resultado = document.getElementById("resultado-matematica");
+
+    const numero1 = parseFloat(valor1);
+    const numero2 = parseFloat(valor2);
+
+    if (
+        valor1 === "" ||
+        valor2 === "" ||
+        Number.isNaN(numero1) ||
+        Number.isNaN(numero2)
+    ) {
+        resultado.innerHTML = "Digite dois números válidos.";
+        return;
+    }
+
+    try {
+        const calculo = calcularOperacao(numero1, numero2, operacao);
+
+        resultado.innerHTML = `
+            Resultado:
+            <strong>${calculo.toFixed(2)}</strong>
+            <br><br>
+            Expressão:
+            <strong>${numero1} ${operacao} ${numero2}</strong>
+        `;
+    } catch (erro) {
+        resultado.innerHTML = erro.message;
+    }
+}
+
+function executarMath() {
+    const valor = document.getElementById("numero-math").value.trim();
+    const operacao = document.getElementById("operacao-math").value.trim().toLowerCase();
+    const resultado = document.getElementById("resultado-math");
+
+    const numero = parseFloat(valor);
+
+    if (valor === "" || Number.isNaN(numero)) {
+        resultado.innerHTML = "Digite um número válido.";
+        return;
+    }
+
+    try {
+        const calculo = calcularMath(numero, operacao);
+
+        resultado.innerHTML = `
+            Resultado de <strong>Math</strong>:
+            <strong>${calculo.toFixed(2)}</strong>
+        `;
+    } catch (erro) {
+        resultado.innerHTML = erro.message;
+    }
+}
+
+/* Aula 04: Date para trabalhar com o ano atual sem fixá-lo no código. */
+function obterAnoAtual() {
+    const dataAtual = new Date();
+    return dataAtual.getFullYear();
+}
+
+/* Inicia a aplicação mostrando a primeira calculadora. */
+mostrarCalculadora("imc");
