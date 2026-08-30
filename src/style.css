@@ -15,8 +15,8 @@ body {
 
     background: linear-gradient(
         135deg,
-        #2563eb,
-        #7c3aed
+        #f5c6d0,
+        #ec8cac
     );
 
     padding: 20px;
@@ -44,7 +44,7 @@ body {
 h1 {
     text-align: center;
 
-    color: #111827;
+    color: #521b32;
 
     margin-bottom: 8px;
 }
@@ -75,13 +75,13 @@ h1 {
 .botao-menu {
     padding: 13px;
 
-    border: 2px solid #2563eb;
+    border: 2px solid #a3248e;
 
     border-radius: 10px;
 
     background: white;
 
-    color: #2563eb;
+    color: #c2148e;
 
     font-size: 15px;
 
@@ -99,7 +99,7 @@ h1 {
 
 
 .botao-menu.ativo {
-    background: #2563eb;
+    background: #c01068;
 
     color: white;
 }
@@ -110,7 +110,7 @@ h1 {
 .calculadora h2 {
     text-align: center;
 
-    color: #1f2937;
+    color: #c01068;
 
     margin-bottom: 10px;
 }
@@ -119,7 +119,7 @@ h1 {
 .calculadora p {
     text-align: center;
 
-    color: #6b7280;
+    color: #951ca0;
 
     margin-bottom: 25px;
 
@@ -146,7 +146,7 @@ label {
 
     font-weight: bold;
 
-    color: #374151;
+    color: #721e52;
 }
 
 
@@ -163,10 +163,37 @@ input {
 }
 
 
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+
+select:focus {
+    outline: none;
+    border-color: #d32777;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 30px 0;
+}
+
+h3 {
+    text-align: center;
+    color: #1f2937;
+    margin-bottom: 20px;
+}
+
 input:focus {
     outline: none;
 
-    border-color: #2563eb;
+    border-color: #080808;
 
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
@@ -183,7 +210,7 @@ input:focus {
 
     border-radius: 8px;
 
-    background: #2563eb;
+    background: #e023a1;
 
     color: white;
 
@@ -198,7 +225,7 @@ input:focus {
 
 
 .botao-calcular:hover {
-    background: #1d4ed8;
+    background: #8b1d54;
 }
 
 
@@ -235,4 +262,12 @@ input:focus {
         grid-template-columns: 1fr;
     }
 
+}
+
+.footer {
+text-align: center;
+margin-top: 30px;
+padding: 15px;
+font-size: 14px;
+color: #0a0a0a;
 }
