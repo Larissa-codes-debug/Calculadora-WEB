@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -8,6 +8,9 @@
     <title>Calculadoras</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -29,21 +32,36 @@
                     class="botao-menu ativo"
                     onclick="mostrarCalculadora('imc')"
                 >
-                    Calculadora de IMC
+                    <img
+                        src="icons/scale_icon.svg"
+                        alt="Ícone de IMC"
+                        class="icone-menu"
+                    >
+                    <span>Calculadora de IMC</span>
                 </button>
 
                 <button
                     class="botao-menu"
                     onclick="mostrarCalculadora('bissexto')"
                 >
-                    Calculadora de Ano Bissexto
+                    <img
+                    src="icons/calendar_icon.svg"
+                    alt="Ícone de ano bissexto"
+                    class="icone-menu"
+                >
+                    <span>Ano Bissexto</span>
                 </button>
 
                 <button
                     class="botao-menu"
                     onclick="mostrarCalculadora('matematica')"
                 >
-                    Calculadora Matemática
+                    <img
+                    src="icons/calculator_icon.svg"
+                    alt="Ícone de calculadora matemática"
+                    class="icone-menu"
+                >
+                    <span>Calculadora Matemática</span>
                 </button>
 
             </div>
@@ -63,7 +81,8 @@
 
                 <div class="campo">
 
-                    <label for="peso">
+                    <label for="peso" class="label-com-icone">
+                    <img src="icons/balanca.png" alt="balanca" class="icone-campo">
                         Peso (kg)
                     </label>
 
@@ -78,9 +97,9 @@
 
 
                 <div class="campo">
-
-                    <label for="altura">
-                        Altura (m)
+                    <label for="altura" class="label-com-icone">
+                    <img src="icons/regua.png" alt="Ícone de régua" class="icone-campo">
+                    Altura (m)
                     </label>
 
                     <input
@@ -93,7 +112,7 @@
                 </div>
 
 
-                <button onclick="executarCalculoIMC()">
+                <button class="botao-calcular" onclick="executarCalculoIMC()">
                     Calcular IMC
                 </button>
 
@@ -239,7 +258,7 @@
                 <div id="resultado-math" class="resultado"></div>
 
             </div>
-            </div>
+            
 
         </section>
       <footer class="footer">
