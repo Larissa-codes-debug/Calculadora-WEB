@@ -62,6 +62,29 @@ const server = http.createServer((req, res) => {
 
         contentType = "application/javascript; charset=utf-8";
 
+    } else if (req.url.startsWith("/icons/")) {
+
+        const nomeArquivo = req.url.replace("/icons/", "");
+
+        filePath = path.join(
+            __dirname,
+            "..",
+            "src",
+            "icons",
+            nomeArquivo
+        );
+
+        if (nomeArquivo.endsWith(".svg")) {
+            contentType = "image/svg+xml";
+        } else if (nomeArquivo.endsWith(".png")) {
+            contentType = "image/png";
+        } else if (
+            nomeArquivo.endsWith(".jpg") ||
+            nomeArquivo.endsWith(".jpeg")
+        ) {
+            contentType = "image/jpeg";
+        }
+
     } else {
 
         res.writeHead(404, {
